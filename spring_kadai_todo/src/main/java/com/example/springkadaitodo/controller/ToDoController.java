@@ -7,20 +7,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.springkadaitodo.entity.ToDo;
-import com.example.springkadaitodo.repository.ToDoRepository;
+import com.example.springkadaitodo.service.ToDoService;
 
 @Controller
 public class ToDoController {
-	private final ToDoRepository toDoRepository;
+	private final ToDoService toDoService;
 	
-	public ToDoController(ToDoRepository toDoRepository) {
-		this.toDoRepository = toDoRepository;
-	}
+    public ToDoController(ToDoService toDoService) {
+        this.toDoService = toDoService;
+    }
 	
-	@GetMapping("/")
+	@GetMapping("/todo")
 	public String toDoList(Model model) {
 //		ToDoリストの取得
-		List<ToDo> toDoList = toDoRepository.findAll();
+		List<ToDo> toDoList = toDoService.getAllToDos();
 		
 //		ビューにユーザリストを渡す
 		model.addAttribute("toDoList", toDoList);
